@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Visualize</title>
+    <link rel="shortcut icon" href="./assets/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="./assets/bootstrap.min.css" />
+    <link rel="stylesheet" href="./assets/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Load the latest version of TensorFlow.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/knn-classifier"></script>
+  </head>
+  <body style="background-image: url('./assets/bg.jpg');">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6 full-height">
+          <div class="vertically-centered">
+            <h1>Visualize</h1>
+            <p>an object detector app built on tensorflow.js</p>
+            <input
+              type="file"
+              name="file"
+              id="file"
+              class="inputfile"
+              accept="image/x-png,image/gif,image/jpeg"
+            />
+            <label for="file" class=""><span>Upload an image</span></label>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card shadow-lg mb-4">
+            <img
+              id="img"
+              class="card-img-top"
+              src="./assets/car.jpg"
+              alt="Card image cap"
+            />
+            <div class="card-body">
+              <ul class="list-group list-group-flush">
+                <li id="l1" class="list-group-item p-1">
+                  sports car, sport car - 80%
+                </li>
+                <li id="l2" class="list-group-item p-1">
+                  beach wagon, station wagon, wagon - 7%
+                </li>
+                <li id="l3" class="list-group-item p-1">
+                  racer, race car, racing car - 6%
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Load index.js after the content of the page -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <script src="./assets/index.js"></script>
+  </body>
+</html>
