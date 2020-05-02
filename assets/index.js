@@ -17,35 +17,39 @@ async function app() {
     };
     let file = $("#file").prop("files")[0];
     reader.readAsDataURL(file);
-
     $("#l1").html("loading model...");
     $("#l2").html("loading model...");
     $("#l3").html("loading model...");
     $("#btn").html("Just a moment");
     console.log("Loading mobilenet..");
-    // Load the model.
-    // Make a prediction through the model on our image.
-    $("#img").attr("src", img_name);
-    const result = await net.classify(imgEl);
-    console.log(result);
-    console.log(result[0]);
-    $("#btn").html("Upload an image");
-    $("#l1").html(
-      `${result[0].className} - ${Math.floor(
-        result[0].probability.toFixed(2) * 100
-      )}%`
-    );
-    $("#l2").html(
-      `${result[1].className} - ${Math.floor(
-        result[1].probability.toFixed(2) * 100
-      )}%`
-    );
-    $("#l3").html(
-      `${result[2].className} - ${Math.floor(
-        result[2].probability.toFixed(2) * 100
-      )}%`
-    );
+    setTimeout(() => {
+      updateUI();
+    }, 500);
   });
 }
 
+async function updateUI() {
+  // Load the model.
+  // Make a prediction through the model on our image.
+  // $("#img").attr("src", img_name);
+  const result = await net.classify(imgEl);
+  console.log(result);
+  console.log(result[0]);
+  $("#btn").html("Upload an image");
+  $("#l1").html(
+    `${result[0].className} - ${Math.floor(
+      result[0].probability.toFixed(2) * 100
+    )}%`
+  );
+  $("#l2").html(
+    `${result[1].className} - ${Math.floor(
+      result[1].probability.toFixed(2) * 100
+    )}%`
+  );
+  $("#l3").html(
+    `${result[2].className} - ${Math.floor(
+      result[2].probability.toFixed(2) * 100
+    )}%`
+  );
+}
 app();
