@@ -3,6 +3,7 @@ const classifier = knnClassifier.create();
 let net;
 
 async function app() {
+  console.log("Loading mobilenet..");
   net = await mobilenet.load();
   console.log("Successfully loaded model");
   $("#btn").html("Upload an Image");
@@ -19,7 +20,6 @@ async function app() {
     $("#l1").html("loading model...");
     $("#l2").html("loading model...");
     $("#l3").html("loading model...");
-    console.log("Loading mobilenet..");
     // Load the model.
     // Make a prediction through the model on our image.
     const imgEl = document.getElementById("img");
