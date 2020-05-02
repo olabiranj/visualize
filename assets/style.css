@@ -5,6 +5,9 @@ body {
 h1 {
   font-size: 72px;
 }
+.progress {
+  opacity: 0;
+}
 .card-body,
 .list-group-item {
   background-color: #001a33;

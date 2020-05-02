@@ -3,6 +3,11 @@ const classifier = knnClassifier.create();
 let net;
 
 async function app() {
+  net = await mobilenet.load();
+  console.log("Successfully loaded model");
+  $("#btn").html("Upload an Image");
+  // btn.style.cursor = "pointer";
+
   $("#file").change(async function () {
     let reader = new FileReader();
     reader.onload = function () {
@@ -11,27 +16,31 @@ async function app() {
     };
     let file = $("#file").prop("files")[0];
     reader.readAsDataURL(file);
-    document.getElementById("l1").innerHTML = "loading model...";
-    document.getElementById("l2").innerHTML = "loading model...";
-    document.getElementById("l3").innerHTML = "loading model...";
+    $("#l1").html("loading model...");
+    $("#l2").html("loading model...");
+    $("#l3").html("loading model...");
     console.log("Loading mobilenet..");
     // Load the model.
-    net = await mobilenet.load();
-    console.log("Successfully loaded model");
     // Make a prediction through the model on our image.
     const imgEl = document.getElementById("img");
     const result = await net.classify(imgEl);
     console.log(result);
     console.log(result[0]);
-    document.getElementById("l1").innerHTML = `${
-      result[0].className
-    } - ${Math.floor(result[0].probability.toFixed(2) * 100)}%`;
-    document.getElementById("l2").innerHTML = `${
-      result[1].className
-    } - ${Math.floor(result[1].probability.toFixed(2) * 100)}%`;
-    document.getElementById("l3").innerHTML = `${
-      result[2].className
-    } - ${Math.floor(result[2].probability.toFixed(2) * 100)}%`;
+    $("#l1").html(
+      `${result[0].className} - ${Math.floor(
+        result[0].probability.toFixed(2) * 100
+      )}%`
+    );
+    $("#l2").html(
+      `${result[1].className} - ${Math.floor(
+        result[1].probability.toFixed(2) * 100
+      )}%`
+    );
+    $("#l3").html(
+      `${result[2].className} - ${Math.floor(
+        result[2].probability.toFixed(2) * 100
+      )}%`
+    );
   });
 }
 
