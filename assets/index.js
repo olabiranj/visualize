@@ -1,35 +1,35 @@
 const webcamElement = document.getElementById("webcam");
+const imgEl = document.getElementById("img");
 const classifier = knnClassifier.create();
 let net;
+let img_name;
 
 async function app() {
+  net = await mobilenet.load();
+  console.log("Successfully loaded model");
+  $("#btn").html("Upload an image");
   $("#file").change(async function () {
     let reader = new FileReader();
-    reader.onload = function () {
+    reader.onload = async function () {
       let dataURL = reader.result;
-      $("#img").attr("src", dataURL);
+      await $("#img").attr("src", dataURL);
+      img_name = dataURL;
     };
     let file = $("#file").prop("files")[0];
     reader.readAsDataURL(file);
-    setInterval(() => {
-      for (let index = 15; index < 98; index++) {
-        document.getElementById.style.width = index;
-      }
-    }, 500);
+
     $("#l1").html("loading model...");
     $("#l2").html("loading model...");
     $("#l3").html("loading model...");
     $("#btn").html("Just a moment");
     console.log("Loading mobilenet..");
     // Load the model.
-    net = await mobilenet.load();
-    console.log("Successfully loaded model");
-    $("#btn").html("Upload an image");
     // Make a prediction through the model on our image.
-    const imgEl = document.getElementById("img");
+    $("#img").attr("src", img_name);
     const result = await net.classify(imgEl);
     console.log(result);
     console.log(result[0]);
+    $("#btn").html("Upload an image");
     $("#l1").html(
       `${result[0].className} - ${Math.floor(
         result[0].probability.toFixed(2) * 100
