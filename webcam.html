@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Visualize</title>
+    <link rel="shortcut icon" href="./assets/img/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="./assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet" />
+    <!-- Load the latest version of TensorFlow.js -->
+    <!-- <script src="./assets/js/tensorflow.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.0/dist/tf.min.js"></script> -->
+    <script src="./assets/js/mobilenet.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet"></script> -->
+    <script src="./assets/js/hnn-classifier.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/knn-classifier"></script> -->
+</head>
+
+<body style="background-image: url('./assets/img/bg.jpg');">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 full-height">
+                <div class="vertically-centered">
+                    <h1>Visualize</h1>
+                    <p>an object detector app built on tensorflow.js</p>
+                    <a class="link-btn" href="index.html">Upload instead?</a>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div id="console"></div>
+                <div class="card shadow-lg mb-4">
+                    <video autoplay playsinline muted id="webcam" width="285" height="224"></video>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li id="l1" class="list-group-item p-1">
+                                Prediction:
+                            </li>
+                            <li id="l2" class="list-group-item p-1">
+                                Probablity:
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- Load index.js after the content of the page -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <!-- <script src="./assets/js/index.js"></script> -->
+    <script>
+        const webcamElement = document.getElementById("webcam");
+            const classifier = knnClassifier.create();
+            let net;
+                async function app() {
+                console.log('Loading mobilenet..');
+
+                // Load the model.
+                net = await mobilenet.load();
+                console.log('Successfully loaded model');
+
+                // Create an object from Tensorflow.js data API which could capture image 
+                // from the web camera as Tensor.
+                const webcam = await tf.data.webcam(webcamElement);
+                while (true) {
+                    const img = await webcam.capture();
+                    const result = await net.classify(img);
+
+                    document.getElementById('l1').innerText = `
+      Prediction: ${result[0].className}`;
+                    document.getElementById('l2').innerText = `
+      Probability: ${Math.floor(
+          result[0].probability.toFixed(2) * 100
+      )}%`;
+                    // Dispose the tensor to release the memory.
+                    img.dispose();
+
+                    // Give some breathing room by waiting for the next animation frame to
+                    // fire.
+                    await tf.nextFrame();
+                }
+            
+            }
+            app();
+    </script>
+</body>
+
+</html>

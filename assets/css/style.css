@@ -11,9 +11,7 @@ h1 {
 .card-body,
 .list-group-item {
   background-color: #001a33;
-}
-.list-group-item {
-  border-bottom: honeydew solid 2px;
+  border-color: #ffffff;
 }
 .card {
   margin-top: 100px;
@@ -31,6 +29,30 @@ h1 {
 .full-height {
   height: 100vh;
 }
+.link-btn {
+  background: #001a33;
+  border: none;
+  border-radius: 0;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: inherit;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  outline: none;
+  padding: 1rem 40px;
+  position: relative;
+  transition: all 0.3s;
+  vertical-align: middle;
+  margin-left: 5px;
+  margin-top: 15px;
+}
+.link-btn:hover {
+  text-decoration: none;
+  background-color: #d3460d;
+  color: #ffffff;
+  box-shadow: black 5px 5px 20px;
+}
 [type="file"] {
   height: 0;
   overflow: hidden;
@@ -39,7 +61,7 @@ h1 {
 [type="file"] + label {
   background: #001a33;
   border: none;
-  border-radius: 5px;
+  border-radius: 0;
   color: #fff;
   cursor: pointer;
   display: inline-block;
@@ -54,6 +76,7 @@ h1 {
 }
 [type="file"] + label:hover {
   background-color: #d3460d;
+  box-shadow: black 5px 5px 20px;
 }
 [type="file"] + label.btn-3 {
   background-color: #ee6d9e;
