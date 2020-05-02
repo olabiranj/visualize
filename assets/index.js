@@ -3,12 +3,6 @@ const classifier = knnClassifier.create();
 let net;
 
 async function app() {
-  console.log("Loading mobilenet..");
-  net = await mobilenet.load();
-  console.log("Successfully loaded model");
-  $("#btn").html("Upload an Image");
-  // btn.style.cursor = "pointer";
-
   $("#file").change(async function () {
     let reader = new FileReader();
     reader.onload = function () {
@@ -17,10 +11,20 @@ async function app() {
     };
     let file = $("#file").prop("files")[0];
     reader.readAsDataURL(file);
+    setInterval(() => {
+      for (let index = 15; index < 98; index++) {
+        document.getElementById.style.width = index;
+      }
+    }, 500);
     $("#l1").html("loading model...");
     $("#l2").html("loading model...");
     $("#l3").html("loading model...");
+    $("#btn").html("Just a moment");
+    console.log("Loading mobilenet..");
     // Load the model.
+    net = await mobilenet.load();
+    console.log("Successfully loaded model");
+    $("#btn").html("Upload an image");
     // Make a prediction through the model on our image.
     const imgEl = document.getElementById("img");
     const result = await net.classify(imgEl);
